@@ -110,6 +110,8 @@ let adminView = {
         this.adminInputName = document.getElementById('input-name');
         this.adminInputNum = document.getElementById('input-num');
         this.adminInputUrl = document.getElementById('input-url');
+        this.adminCancelBtn = document.getElementById('cancel');
+        this.adminSaveBtn = document.getElementById('save');
 
         this.adminListElem.style.visibility = 'hidden';
 
@@ -127,6 +129,10 @@ let adminView = {
         this.adminInputName.value = currentCat.name;
         this.adminInputNum.value = currentCat.clickCount;
         this.adminInputUrl.value = currentCat.imgSrc;
+
+        this.adminCancelBtn.addEventListener('click', function () {
+            adminView.init();
+        })
     }
 }
 
