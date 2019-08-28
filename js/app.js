@@ -34,6 +34,7 @@ let octopus = {
         model.currentCat = model.cats[0];
         catListView.init();
         catView.init();
+        adminView.init();
     },
 
     getCurrentCat: function () {
@@ -83,6 +84,7 @@ let catListView = {
 
     render: function () {
         let cats = octopus.getAllCats();
+        this.catListElem.innerText = '';
         for(let i = 0; i < cats.length; i ++){
             let cat = cats[i];
             let catElem = document.createElement('li');
@@ -91,6 +93,7 @@ let catListView = {
             catElem.addEventListener('click', function (cat) {
                 return function () {
                     octopus.setCurrentCat(cat);
+                    adminView.init();
                     catView.render();
                 }
             }(cat));
@@ -101,7 +104,30 @@ let catListView = {
 }
 
 let adminView = {
+    init: function () {
+        this.adminElem = document.getElementById('open-admin');
+        this.adminListElem = document.getElementById('admin-option');
+        this.adminInputName = document.getElementById('input-name');
+        this.adminInputNum = document.getElementById('input-num');
+        this.adminInputUrl = document.getElementById('input-url');
 
+        this.adminListElem.style.visibility = 'hidden';
+
+        this.adminElem.addEventListener('click', function () {
+           if(adminView.adminListElem.style.visibility === "hidden"){
+               adminView.adminListElem.style.visibility = "visible";
+           }
+        })
+        this.adminListElem.style.visibility = 'hidden';
+        this.render();
+    },
+
+    render: function () {
+        let currentCat = octopus.getCurrentCat();
+        this.adminInputName.value = currentCat.name;
+        this.adminInputNum.value = currentCat.clickCount;
+        this.adminInputUrl.value = currentCat.imgSrc;
+    }
 }
 
 octopus.init();
