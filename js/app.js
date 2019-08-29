@@ -53,6 +53,7 @@ let octopus = {
     setCurrentCat: function (cat) {
         model.currentCat = cat;
     }
+
 }
 
 let catView = {
@@ -117,6 +118,8 @@ let adminView = {
 
         this.adminElem.addEventListener('click', function () {
            if(adminView.adminListElem.style.visibility === "hidden"){
+               octopus.getCurrentCat();
+               adminView.render();
                adminView.adminListElem.style.visibility = "visible";
            }
         })
@@ -132,6 +135,10 @@ let adminView = {
 
         this.adminCancelBtn.addEventListener('click', function () {
             adminView.init();
+        })
+
+        this.adminSaveBtn.addEventListener('click', function () {
+            // currentCat.name =
         })
     }
 }
