@@ -1,10 +1,12 @@
 let model = {
     currentCat: null,
+    catNum: 0,
     cats: [
         {
             clickCount: 0,
             name: 'H',
             imgSrc: 'img/cat_picture1.jpg'
+
         },
         {
             clickCount: 0,
@@ -41,6 +43,10 @@ let octopus = {
         return model.currentCat;
     },
 
+    getCurrentCatNum: function() {
+        return model.catNum;
+    },
+
     getAllCats: function () {
         return model.cats;
     },
@@ -50,10 +56,18 @@ let octopus = {
         catView.render();
     },
 
-    setCurrentCat: function (cat) {
+    setCurrentCat: function (cat, i) {
         model.currentCat = cat;
-    }
+        model.catNum = i;
+    },
 
+    updateCat: function (catNum, name, clickNum, url) {
+        model.cats[catNum].name = name;
+        model.cats[catNum].clickCount = clickNum;
+        model.cats[catNum].imgSrc = url;
+        catView.render();
+        catListView.render();
+    }
 }
 
 let catView = {
@@ -91,13 +105,13 @@ let catListView = {
             let catElem = document.createElement('li');
             catElem.textContent = cat.name;
 
-            catElem.addEventListener('click', function (cat) {
+            catElem.addEventListener('click', function (cat, i) {
                 return function () {
-                    octopus.setCurrentCat(cat);
+                    octopus.setCurrentCat(cat, i);
                     adminView.init();
                     catView.render();
                 }
-            }(cat));
+            }(cat, i));
 
             this.catListElem.appendChild(catElem);
         }
@@ -118,7 +132,6 @@ let adminView = {
 
         this.adminElem.addEventListener('click', function () {
            if(adminView.adminListElem.style.visibility === "hidden"){
-               octopus.getCurrentCat();
                adminView.render();
                adminView.adminListElem.style.visibility = "visible";
            }
@@ -138,7 +151,11 @@ let adminView = {
         })
 
         this.adminSaveBtn.addEventListener('click', function () {
-            // currentCat.name =
+            let catName = adminView.adminInputName.value;
+            let clickNum = adminView.adminInputNum.value;
+            let url = adminView.adminInputUrl.value;
+            let catNum = octopus.getCurrentCatNum();
+            octopus.updateCat(catNum, catName, clickNum, url);
         })
     }
 }
