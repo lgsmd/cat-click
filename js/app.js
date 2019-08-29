@@ -53,6 +53,7 @@ let octopus = {
 
     increaseCount: function () {
         model.currentCat.clickCount += 1;
+        console.log(model.currentCat.clickCount);
         catView.render();
     },
 
@@ -152,7 +153,7 @@ let adminView = {
 
         this.adminSaveBtn.addEventListener('click', function () {
             let catName = adminView.adminInputName.value;
-            let clickNum = adminView.adminInputNum.value;
+            let clickNum = parseInt(adminView.adminInputNum.value);
             let url = adminView.adminInputUrl.value;
             let catNum = octopus.getCurrentCatNum();
             octopus.updateCat(catNum, catName, clickNum, url);
