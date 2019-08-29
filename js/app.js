@@ -86,7 +86,7 @@ let catView = {
     render: function () {
         let currentCat = octopus.getCurrentCat();
         this.catNameElem.textContent = currentCat.name;
-        this.catCountElem.textContent = currentCat.clickCount;
+        this.catCountElem.textContent = currentCat.clickCount + " clicks";
         this.catImgElem.src = currentCat.imgSrc;
     }
 }
